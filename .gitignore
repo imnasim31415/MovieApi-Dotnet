@@ -1,0 +1,20 @@
+# Build artifacts
+bin/
+obj/
+
+# User-specific files
+.vscode/
+*.user
+*.swp
+
+# EF Core migrations build junk (not actual migrations)
+Migrations/obj/
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# SQLite database (optional)
+movies.db
