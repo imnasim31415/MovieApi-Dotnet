@@ -7,6 +7,6 @@ namespace MovieApi.Data
     {
         public MovieContext(DbContextOptions<MovieContext> options) : base(options) { }
 
-        public DbSet<Movie> Movies => Set<Movie>();
+        public DbSet<Movie> Movies => Set<Movie>(); // DbSet for Movie entities
     }
 }

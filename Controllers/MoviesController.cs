@@ -10,7 +10,7 @@ namespace MovieApi.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly MovieContext _context;
-        public MoviesController(MovieContext context) => _context = context;
+        public MoviesController(MovieContext context) => _context = context; // Registers DbContext with DI container
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovies() =>
