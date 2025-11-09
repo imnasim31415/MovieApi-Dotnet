@@ -5,12 +5,12 @@ using MovieApi.Models;
 
 namespace MovieApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class MoviesController : ControllerBase
+    [Route("api/[controller]")]   // defines base URL... api/movie. [Controller] = MovieController (class name) - Controller
+    [ApiController]  // indicates this is an REST API controller
+    public class MovieController : ControllerBase // not Controller (no views)
     {
-        private readonly MovieContext _context;
-        public MoviesController(MovieContext context) => _context = context; // Registers DbContext with DI container
+        private readonly MovieContext _context; // _context represents DB session
+        public MovieController(MovieContext context) => _context = context; // Registers DbContext with DI container
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovies() =>
@@ -19,6 +19,7 @@ namespace MovieApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> GetMovie(int id)
         {
+
             var movie = await _context.Movies.FindAsync(id);
             if (movie == null) return NotFound();
             return movie;
