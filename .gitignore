@@ -6,6 +6,7 @@ obj/
 .vscode/
 *.user
 *.swp
+.vs/
 
 # EF Core migrations build junk (not actual migrations)
 Migrations/obj/
