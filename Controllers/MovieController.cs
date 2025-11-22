@@ -5,22 +5,28 @@ using MovieApi.Models;
 
 namespace MovieApi.Controllers
 {
-    [Route("api/[controller]")]   // defines base URL... api/movie. [Controller] = MovieController (class name) - Controller
-    [ApiController]  // indicates this is an REST API controller
-    public class MovieController : ControllerBase // not Controller (no views)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MovieController : ControllerBase
     {
-        private readonly MovieContext _context; // _context represents DB session
-        public MovieController(MovieContext context) => _context = context; // Registers DbContext with DI container
+        private readonly MovieContext _context;
+        public MovieController(MovieContext context) => _context = context;
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovies() =>
-            await _context.Movies.ToListAsync();
+            await _context.Movies
+                .Include(m => m.Director)
+                .Include(m => m.Actors)
+                .ToListAsync();
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> GetMovie(int id)
         {
+            var movie = await _context.Movies
+                .Include(m => m.Director)
+                .Include(m => m.Actors)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            var movie = await _context.Movies.FindAsync(id);
             if (movie == null) return NotFound();
             return movie;
         }
